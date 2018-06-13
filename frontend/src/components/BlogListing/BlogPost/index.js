@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledBlogPost = styled.li`
   text-align: left;
@@ -32,5 +33,12 @@ const BlogPost = ({title, summary, link, showPost}) => {
     </StyledBlogPost>
   );
 }
+
+BlogPost.propTypes = {
+  title: PropTypes.string.isRequired,
+  summary: PropTypes.string,
+  link: PropTypes.string.isRequired,
+  showPost: PropTypes.func.isRequired,
+};
 
 export default BlogPost;

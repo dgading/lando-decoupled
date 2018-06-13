@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import BlogPost from './BlogPost';
 
@@ -24,5 +25,10 @@ const BlogListing = ({blogPosts, showPost}) => {
     </StyledBlogListing>
   );
 }
+
+BlogListing.propTypes = {
+  blogPosts: PropTypes.array.isRequired,
+  showPost: PropTypes.func.isRequired,
+};
 
 export default BlogListing;

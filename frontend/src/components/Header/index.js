@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import logo from './logo.svg';
 
+
 const StyledHeader = styled.header`
   background-color: #222;
   height: 150px;

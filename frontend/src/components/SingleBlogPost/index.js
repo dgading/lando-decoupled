@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SingleBlogPost = ({postDetails, returnToList}) => {
   function createMarkup() {
@@ -12,5 +13,10 @@ const SingleBlogPost = ({postDetails, returnToList}) => {
     </div>
   );
 }
+
+SingleBlogPost.propTypes = {
+  postDetails: PropTypes.object.isRequired,
+  returnToList: PropTypes.func.isRequired,
+};
 
 export default SingleBlogPost;

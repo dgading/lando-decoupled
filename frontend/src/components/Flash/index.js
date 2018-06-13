@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledFlash = styled.div`
   width: 100%;
@@ -31,6 +32,11 @@ const Flash = ({message, type}) => {
       <p>{message}</p>
     </FlashContainer>
   );
+};
+
+Flash.propTypes = {
+  message: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['Error', 'Status', 'Notice']).isRequired,
 };
 
 export default Flash;
