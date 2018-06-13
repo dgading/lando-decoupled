@@ -1,0 +1,72 @@
+name: decoupled-dev
+proxy:
+  nginx:
+    - cms.decoupled.lndo.site
+  nodejs:
+    - decoupled.lndo.site
+services:
+  cms:
+    type: php:7.2
+    via: nginx
+    config:
+      server: config/nginx/site.conf
+    ssl: true
+    webroot: backend/web
+    xdebug: false
+    overrides:
+      services:
+        environment:
+          DB_HOST: mariadb
+          DB_USER: cms
+          DB_PASSWORD: cms
+          DB_NAME: cms
+          DB_PORT: 3306
+    build:
+      - "composer --ansi --working-dir=/app/backend install"
+    run_as_root:
+      - "cp -f /app/config/drupal/lando.settings.php /app/backend/web/sites/default/settings.php"
+      - "cp -f /app/backend/web/sites/example.settings.local.php /app/backend/web/sites/default/settings.local.php"
+  mariadb:
+    type: mariadb:10.2
+    portforward: true
+    creds:
+      user: cms
+      password: cms
+      database: cms
+  nodejs:
+    type: node:8
+    ssl: true
+    build:
+      - "cd frontend && yarn install"
+      - "cd frontend && yarn start"
+    overrides:
+      services:
+        ports: [3333:3333]
+tooling:
+  composer:
+    service: cms
+    cmd:
+      - "composer"
+      - "--ansi"
+      - "--working-dir=/app/backend"
+  drush:
+    service: cms
+    cmd:
+      - "/app/backend/vendor/drush/drush/drush"
+      - "--root=/app/backend/web"
+    needs:
+      - mariadb
+    options:
+      passthrough: true
+  node:
+    service: nodejs
+  npm:
+    service: nodejs
+    cmd:
+      - "npm"
+      - "--cwd=/app/frontend"
+  yarn:
+    service: nodejs
+    cmd:
+      - "yarn"
+      - "--cwd=/app/frontend"
