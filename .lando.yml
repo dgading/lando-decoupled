@@ -23,9 +23,6 @@ services:
           DB_PORT: 3306
     build:
       - "composer --ansi --working-dir=/app/backend install"
-    run_as_root:
-      - "cp -f /app/config/drupal/lando.settings.php /app/backend/web/sites/default/settings.php"
-      - "cp -f /app/backend/web/sites/example.settings.local.php /app/backend/web/sites/default/settings.local.php"
   mariadb:
     type: mariadb:10.2
     portforward: true
@@ -38,7 +35,6 @@ services:
     ssl: true
     build:
       - "cd frontend && yarn install"
-      - "cd frontend && yarn start"
     overrides:
       services:
         ports: [3333:3333]
@@ -70,3 +66,7 @@ tooling:
     cmd:
       - "yarn"
       - "--cwd=/app/frontend"
+events:
+  post-start:
+    - cms: "cp $LANDO_MOUNT/config/drupal/lando.settings.php $LANDO_MOUNT/backend/web/sites/default/settings.php"
+    - cms: "cp $LANDO_MOUNT/backend/web/sites/example.settings.local.php $LANDO_MOUNT/backend/web/sites/default/settings.local.php"
