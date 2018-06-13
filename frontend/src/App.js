@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import BlogListing from './components/BlogListing';
 import SingleBlogPost from './components/SingleBlogPost';
+import Flash from './components/Flash';
 
 const StyledApp = styled.div`
   text-align: center;
@@ -16,7 +17,9 @@ class App extends Component {
     this.state = {
       blogPosts: [],
       showList: true,
-      currentPost: {}
+      currentPost: {},
+      isError: false,
+      flashMessage: '',
     }
     this.showPost = this.showPost.bind(this);
     this.returnToList = this.returnToList.bind(this);
@@ -43,6 +46,10 @@ class App extends Component {
         this.setState({blogPosts: blogPosts.data});
       })
       .catch((error) => {
+        this.setState({
+          isError: true,
+          flashMessage: error.message,
+        })
         console.log(error);
       });
   }
@@ -51,6 +58,9 @@ class App extends Component {
     return (
       <StyledApp>
         <Header />
+        {this.state.isError &&
+          <Flash message={this.state.flashMessage} type={'Error'} />
+        }
         {this.state.showList === true ?
           <Fragment>
             <h2>Blog Listing</h2>
