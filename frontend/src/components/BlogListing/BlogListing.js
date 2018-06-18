@@ -1,7 +1,8 @@
-import React, { Component } from 'react';import styled from 'styled-components';
+import React, { Component } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import BlogPost from './BlogPost';
+import BlogPost from './BlogPost/BlogPost';
 
 const StyledBlogListing = styled.ul`
   list-style: none;
@@ -97,6 +98,7 @@ class BlogListing extends Component {
 
 BlogListing.propTypes = {
   blogPosts: PropTypes.array.isRequired,
+  includes: PropTypes.array,
   showPost: PropTypes.func.isRequired,
 };
 

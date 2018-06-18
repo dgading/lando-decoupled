@@ -2,6 +2,8 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import Button from '../Button/Button';
+
 const Image = styled.img`
   max-width: 300px;
 `;
@@ -12,7 +14,7 @@ const SingleBlogPost = ({postDetails, returnToList}) => {
   }
   return(
     <div>
-      <button onClick={returnToList}>Return to Blog List</button>
+      <Button click={returnToList} text={'Return to Blog List'} />
       {postDetails.postImages !== null &&
         postDetails.postImages.map((image) => {
           return(

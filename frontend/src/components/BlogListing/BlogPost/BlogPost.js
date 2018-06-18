@@ -2,6 +2,9 @@ import React, {Fragment} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import Button from '../../Button/Button';
+
+
 const StyledBlogPost = styled.li`
   text-align: left;
 `;
@@ -16,11 +19,6 @@ const PostLink = styled.a`
   &:hover {
     text-decoration: underline;
   }
-`;
-
-const ReadMore = styled.button`
-  padding: 5px;
-  background: none;
 `;
 
 const TeaserImage = styled.img`
@@ -44,7 +42,7 @@ const BlogPost = ({title, summary, link, showPost, tags, images}) => {
       }
       <p>{summary}</p>
       <PostLink href={'http://cms.decoupled.lndo.site/' + link}>Read on CMS</PostLink>
-      <ReadMore onClick={() => showPost()}>Read Here</ReadMore>
+      <Button click={() => showPost()} text={'Read Here'} />
       {tags.length > 0 &&
       <Fragment>
         <h3>Tags</h3>
@@ -66,6 +64,8 @@ BlogPost.propTypes = {
   summary: PropTypes.string,
   link: PropTypes.string.isRequired,
   showPost: PropTypes.func.isRequired,
+  tags: PropTypes.array,
+  images: PropTypes.array
 };
 
 export default BlogPost;

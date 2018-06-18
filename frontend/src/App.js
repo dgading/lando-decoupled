@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-import Header from './components/Header';
-import BlogListing from './components/BlogListing';
-import SingleBlogPost from './components/SingleBlogPost';
-import Flash from './components/Flash';
+import Header from './components/Header/Header';
+import BlogListing from './components/BlogListing/BlogListing';
+import SingleBlogPost from './components/SingleBlogPost/SingleBlogPost';
+import StatusMessage from './components/StatusMessage/StatusMessage';
 
 const StyledApp = styled.div`
   text-align: center;
@@ -19,7 +19,7 @@ class App extends Component {
       showList: true,
       currentPost: {},
       isError: false,
-      flashMessage: '',
+      statusMessage: '',
     }
     this.showPost = this.showPost.bind(this);
     this.returnToList = this.returnToList.bind(this);
@@ -48,7 +48,7 @@ class App extends Component {
       .catch((error) => {
         this.setState({
           isError: true,
-          flashMessage: error.message,
+          statusMessage: error.message,
         })
         console.log(error);
       });
@@ -59,7 +59,7 @@ class App extends Component {
       <StyledApp>
         <Header />
         {this.state.isError &&
-          <Flash message={this.state.flashMessage} type={'Error'} />
+          <StatusMessage message={this.state.statusMessage} type={'Error'} />
         }
         {(this.state.showList === true && this.state.blogPosts.data) &&
           <Fragment>

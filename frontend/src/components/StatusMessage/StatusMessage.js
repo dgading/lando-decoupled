@@ -2,41 +2,41 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const StyledFlash = styled.div`
+const StyledStatusMessage = styled.div`
   width: 100%;
   padding: 10px;
   text-align: center;
   border: 2px solid #000;
 `;
 
-const FlashError = StyledFlash.extend`
+const StatusMessageError = StyledStatusMessage.extend`
   background: red;
   color: #fff;
   border: 2px solid red;
 `;
 
-const Flash = ({message, type}) => {
-  let FlashContainer;
+const StatusMessage = ({message, type}) => {
+  let StatusMessageContainer;
   switch (type) {
     case 'Error':
-      FlashContainer = FlashError;
+      StatusMessageContainer = StatusMessageError;
       break;
     default:
-      FlashContainer = StyledFlash;
+      StatusMessageContainer = StyledStatusMessage;
       break;
   }
 
   return(
-    <FlashContainer>
+    <StatusMessageContainer>
       <p>{type}</p>
       <p>{message}</p>
-    </FlashContainer>
+    </StatusMessageContainer>
   );
 };
 
-Flash.propTypes = {
+StatusMessage.propTypes = {
   message: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['Error', 'Status', 'Notice']).isRequired,
 };
 
-export default Flash;
+export default StatusMessage;
