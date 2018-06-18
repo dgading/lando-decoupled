@@ -40,10 +40,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://cms.decoupled.lndo.site/jsonapi/node/article`)
+    axios.get(`http://cms.decoupled.lndo.site/jsonapi/node/article?include=field_tags,field_image`)
       .then(res => {
         const blogPosts = res.data;
-        this.setState({blogPosts: blogPosts.data});
+        this.setState({blogPosts: blogPosts});
       })
       .catch((error) => {
         this.setState({
@@ -61,14 +61,17 @@ class App extends Component {
         {this.state.isError &&
           <Flash message={this.state.flashMessage} type={'Error'} />
         }
-        {this.state.showList === true ?
+        {(this.state.showList === true && this.state.blogPosts.data) &&
           <Fragment>
             <h2>Blog Listing</h2>
             <BlogListing 
-              blogPosts={this.state.blogPosts}
+              blogPosts={this.state.blogPosts.data}
+              includes={this.state.blogPosts.included}
               showPost={this.showPost}
             />
-          </Fragment> :
+          </Fragment> 
+        }
+        {(this.state.showList !== true && this.state.blogPosts.data) &&
           <SingleBlogPost 
             postDetails={this.state.currentPost}
             returnToList={this.returnToList}
