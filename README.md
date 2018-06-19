@@ -25,3 +25,6 @@ Drush is available for the Drupal build. To run a command like clear cache, use 
 
 #### Yarn
 The Create React app is installed and run using Yarn. Any Yarn command can be run using `yarn <command>`. For example, if you have stopped the development server and want to restart it, just use `lando yarn start`.
+
+## Credits
+This was inspired by https://github.com/WondrousLLC/decoupled-drupal-test but after needing to cut out all the Platform.sh code and adding React I decided to create it as it's own repo.
